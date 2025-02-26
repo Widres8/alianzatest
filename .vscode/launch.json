@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "mainClass": "${file}",
+      "name": "Current File",
+      "request": "launch",
+      "type": "java"
+    },
+    {
+      "mainClass": "co.alianza.demo.DemoApplication",
+      "name": "DemoApplication",
+      "projectName": "demo",
+      "request": "launch",
+      "type": "java"
+    }
+  ],
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0"
+}
