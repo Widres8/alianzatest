@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: demo
+
+springdoc:
+  # http://{{host}}/custom-swagger-ui.html
+  swagger-ui:
+    path: /custom-swagger-ui.html
+  # http://{{host}}/custom-api-docs
+  api-docs:
+    path: /custom-api-docs

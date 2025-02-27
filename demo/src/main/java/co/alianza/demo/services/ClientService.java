@@ -21,8 +21,8 @@ public class ClientService implements IClientService {
   private List<ClientDto> clients = loadClients();
 
   @Override
-  public List<ClientDto> getAll() {
-    return clients;
+  public List<ClientDto> getAll(String username) {
+    return username == null ? clients : clients.stream().filter(x -> x.getUsername().contains(username)).toList();
   }
 
   @Override
@@ -52,31 +52,29 @@ public class ClientService implements IClientService {
 
   @Override
   public boolean update(ClientDto clientDto) {
-    try {
-      var client = clients.stream().filter(x -> x.getId().equals(clientDto.getId())).findFirst().orElse(null);
-      if (client == null) {
-        log.info(CLIENT_NOT_FOUND);
-        throw new EntityNotFoundException(CLIENT_NOT_FOUND);
-      }
-      client.setName(clientDto.getName());
-      client.setEmail(clientDto.getEmail());
-      client.setPhone(clientDto.getPhone());
-      client.setStartDate(clientDto.getStartDate());
-      client.setEndDate(clientDto.getEndDate());
-      return true;
-    } catch (Exception ex) {
-      log.error("Error updating client with id: {}", clientDto.getId(), ex);
-      return false;
+    var client = clients.stream().filter(x -> x.getId().equals(clientDto.getId())).findFirst().orElse(null);
+    if (client == null) {
+      log.info(CLIENT_NOT_FOUND);
+      throw new EntityNotFoundException(CLIENT_NOT_FOUND);
     }
+    client.setName(clientDto.getName());
+    client.setEmail(clientDto.getEmail());
+    client.setPhone(clientDto.getPhone());
+    client.setStartDate(clientDto.getStartDate());
+    client.setEndDate(clientDto.getEndDate());
+    return true;
+
   }
 
   @Override
-  public void delete(Long id) {
+  public boolean delete(Long id) {
     try {
       clients.removeIf(client -> client.getId().equals(id));
       log.info("Client deleted successfully");
+      return true;
     } catch (Exception ex) {
       log.error("Error deleting client with id: {}", id, ex);
+      return false;
     }
   }
 

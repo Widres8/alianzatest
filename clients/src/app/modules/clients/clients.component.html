@@ -1,0 +1,69 @@
+<fieldset class="btn-group gap-3">
+  <button type="button" class="btn btn-primary" (click)="onCreateOrEdit(0)">
+    <i class="bi bi-plus"></i> New
+  </button>
+  <button type="button" class="btn btn-primary">
+    <i class="bi bi-file-earmark-arrow-down"></i> Export
+  </button>
+</fieldset>
+
+<div class="my-3 row">
+  <div class="col-12 col-md-4">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter shared key"
+        aria-label="Enter shared key"
+        aria-describedby="search"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange($event)"
+      />
+      <span class="input-group-text" id="search">Search</span>
+    </div>
+    @if (isInvalidSearch()) {
+    <div class="text-danger mt-1">
+      The shared key is valid, the field length is between 3 and 10
+    </div>
+    }
+  </div>
+  <div class="col-12 col-md-4 mt-3 mt-md-0">
+    <button class="btn btn-primary" type="submit">Advance Search</button>
+  </div>
+</div>
+
+<div class="table-responsive mt-4">
+  <table class="table table-bordered border-3">
+    <thead>
+      <tr>
+        <th scope="col">Share Key</th>
+        <th scope="col">Business ID</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Date Added</th>
+        <th scope="col"><i class="bi bi-pencil-square"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of clients(); track $index) {
+      <tr>
+        <td>{{ item.username }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.startDate | date : "dd/MM/yyyy" }}</td>
+        <td>
+          <button
+            type="button"
+            (click)="onCreateOrEdit(item.id)"
+            class="btn btn-link"
+            title="Edit"
+          >
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

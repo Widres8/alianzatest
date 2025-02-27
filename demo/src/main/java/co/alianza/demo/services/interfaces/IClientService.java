@@ -6,12 +6,7 @@ import co.alianza.demo.common.dtos.ClientDto;
 
 public interface IClientService {
 
-  /**
-   * The function getAll() returns a list of ClientDto objects.
-   * 
-   * @return A List of ClientDto objects is being returned.
-   */
-  public List<ClientDto> getAll();
+  public List<ClientDto> getAll(String username);
 
   /**
    * The function `getById` in Java returns a `ClientDto` object based on the provided `id`.
@@ -51,7 +46,9 @@ public interface IClientService {
    * 
    * @param id The `delete` method takes a single parameter `id` of type `Long`. This `id` parameter is
    * used to identify the specific entity that needs to be deleted from the system or database.
+   * @return The method is returning a boolean value, which indicates whether the delete operation was
+   * successful or not.
    */
-  public void delete(Long id);
+  public boolean delete(Long id);
 
 }
